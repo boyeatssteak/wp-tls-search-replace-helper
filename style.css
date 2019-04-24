@@ -1,0 +1,44 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #033b63;
+}
+section, footer {
+  padding: 20px;
+}
+#input {
+  background: #5ab7fa;
+}
+#inputs label {
+  display: block;
+}
+#backup {
+  background: #7bc6fb;
+}
+#dbChange {
+  background: #8ccdfb;
+}
+#redirect {
+  background: #9cd4fc;
+}
+#backupCodeBlocks div,
+#dbChangeCodeBlocks div,
+#redirectCodeBlocks div {
+  font-family: 'Courier New', Courier, monospace;
+  padding: 10px;
+  margin: 10px;
+  background: #333;
+  color: #ccc;
+}
+#backupCodeBlocks div.copied,
+#dbChangeCodeBlocks div.copied,
+#redirectCodeBlocks div.copied {
+  background: #555;
+  color: #999;
+  transition: all 500ms linear
+}
+#footer {
+  background: #033b63;
+  color: #fff;
+}

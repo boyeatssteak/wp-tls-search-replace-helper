@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WP-CLI Search Replace TLS Command Helper</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <section id="input">
+    <form id="inputs">
+      <label for="searchQuery">Old Hostname:
+        <input id="searchQuery" name="searchQuery" type="text">
+      </label>
+      <label for="replaceQuery">New Hostname:
+        <input id="replaceQuery" name="replaceQuery" type="text">
+      </label>
+      <input type='submit' id="submit" value="Commandify!">
+    </form>
+  </section>
+  <section id="backup">
+    <h3>1. Backup db first!</h3>
+    <div id="backupCodeBlocks"></div>
+  </section>
+  <section id="dbChange">
+    <h3>2. Run the db updates</h3>
+    <div id="dbChangeCodeBlocks"></div>
+  </section>
+  <section id="redirect">
+    <h3>3. Add .htaccess rule to force https</h3>
+    <div id="redirectCodeBlocks"></div>
+  </section>
+  <footer id="footer">
+    <p>Fill out the form for your old and new hostnames, and this will generate the WP-CLI commands to run with various protocol variation formats that you can run to update the database to https versions of your hostnames. Simply click on an entry to copy it to your clipboard. Run as many or as few as you want.
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
