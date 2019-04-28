@@ -10,12 +10,14 @@
 <body>
   <section id="input">
     <form id="inputs">
-      <label for="searchQuery">Old Hostname:
-        <input id="searchQuery" name="searchQuery" type="text">
-      </label>
-      <label for="replaceQuery">New Hostname:
+      <div class="input">
+        <label for="searchQuery">Old Hostname:</label>
+        <input id="searchQuery" name="searchQuery" type="text" autofocus>
+      </div>
+      <div class="input">
+        <label for="replaceQuery">New Hostname:</label>
         <input id="replaceQuery" name="replaceQuery" type="text">
-      </label>
+      </div>
       <input type='submit' id="submit" value="Commandify!">
     </form>
   </section>
@@ -32,7 +34,7 @@
     <div id="redirectCodeBlocks"></div>
   </section>
   <footer id="footer">
-    <p>Fill out the form for your old and new hostnames, and this will generate the WP-CLI commands to run with various protocol variation formats that you can run to update the database to https versions of your hostnames. Simply click on an entry to copy it to your clipboard. Run as many or as few as you want.
+    <p><strong>INSTRUCTIONS:</strong> Fill out the form for your old and new hostnames, and this will generate the WP-CLI commands to run with various protocol variation formats that you can run to update the database to https versions of your hostnames. Simply click on an entry to copy it to your clipboard. Run as many or as few as you want.
   </footer>
   <script src="script.js"></script>
 </body>

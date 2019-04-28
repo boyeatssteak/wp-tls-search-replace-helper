@@ -2,25 +2,59 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: #033b63;
+  background: #163515;
 }
 section, footer {
   padding: 20px;
 }
 #input {
-  background: #5ab7fa;
+  background: #3B8A36;
 }
-#inputs label {
+.input {
   display: block;
 }
+#inputs label {
+  display: inline-block;
+  font-weight: 600;
+  color: #fff;
+  text-align: right;
+}
+input {
+  padding: 10px;
+  background: #bce4b9;
+  border: 0px;
+  margin: 15px;
+}
+input[type='text'] {
+  width: 50%;
+  min-width: 300px;
+  display: inline-block;
+  transition: all 500ms ease-in-out;
+}
+input[type='text']:focus {
+  background: #fff;
+}
+input[type='submit'] {
+  background: #163515;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  text-transform: uppercase;
+  display: block;
+  transition: all 500ms ease-in-out;
+}
+input[type='submit']:hover {
+  background: #0c1c0b;
+  cursor: pointer;
+}
 #backup {
-  background: #7bc6fb;
+  background: #bce4b9;
 }
 #dbChange {
-  background: #8ccdfb;
+  background: #a4daa1;
 }
 #redirect {
-  background: #9cd4fc;
+  background: #8dd188;
 }
 #backupCodeBlocks div,
 #dbChangeCodeBlocks div,
@@ -34,11 +68,11 @@ section, footer {
 #backupCodeBlocks div.copied,
 #dbChangeCodeBlocks div.copied,
 #redirectCodeBlocks div.copied {
-  background: #555;
-  color: #999;
-  transition: all 500ms linear
+  background: #222;
+  color: #666;
+  transition: all 200ms ease-in-out;
 }
 #footer {
-  background: #033b63;
+  background: #163515;
   color: #fff;
 }
