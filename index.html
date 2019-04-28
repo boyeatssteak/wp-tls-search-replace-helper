@@ -21,17 +21,19 @@
       <input type='submit' id="submit" value="Commandify!">
     </form>
   </section>
-  <section id="backup">
-    <h3>1. Backup db first!</h3>
-    <div id="backupCodeBlocks"></div>
-  </section>
-  <section id="dbChange">
-    <h3>2. Run the db updates</h3>
-    <div id="dbChangeCodeBlocks"></div>
-  </section>
-  <section id="redirect">
-    <h3>3. Add .htaccess rule to force https</h3>
-    <div id="redirectCodeBlocks"></div>
+  <section id="output">
+    <section id="backup">
+      <h3>1. Backup db first!</h3>
+      <div id="backupCodeBlocks"></div>
+    </section>
+    <section id="dbChange">
+      <h3>2. Run the db updates</h3>
+      <div id="dbChangeCodeBlocks"></div>
+    </section>
+    <section id="redirect">
+      <h3>3. Add .htaccess rule to force https</h3>
+      <div id="redirectCodeBlocks"></div>
+    </section>
   </section>
   <footer id="footer">
     <p><strong>INSTRUCTIONS:</strong> Fill out the form for your old and new hostnames, and this will generate the WP-CLI commands to run with various protocol variation formats that you can run to update the database to https versions of your hostnames. Simply click on an entry to copy it to your clipboard. Run as many or as few as you want.

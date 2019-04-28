@@ -47,6 +47,26 @@ input[type='submit']:hover {
   background: #0c1c0b;
   cursor: pointer;
 }
+#output {
+  padding: 0px;
+}
+#backup,
+#dbChange,
+#redirect {
+  max-height: 1000px;
+  transition: all 1s ease-in-out;
+}
+#output.hidden #backup,
+#output.hidden #dbChange,
+#output.hidden #redirect {
+  max-height: 0;
+  padding: 0;
+}
+#output.hidden #backup *,
+#output.hidden #dbChange *,
+#output.hidden #redirect * {
+  display: none;
+}
 #backup {
   background: #bce4b9;
 }

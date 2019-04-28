@@ -1,3 +1,6 @@
+let output = document.getElementById("output");
+output.className = 'hidden';
+
 let backupCodeBlocks = document.getElementById("backupCodeBlocks");
 let dbChangeCodeBlocks = document.getElementById("dbChangeCodeBlocks");
 let redirectCodeBlocks = document.getElementById("redirectCodeBlocks");
@@ -58,7 +61,8 @@ let generateRedirectDirectives = function(hostname) {
 }
 
 let generateOutput = function(searchQuery, replaceQuery) {
-  clearCodeBlocks();  
+  output.className = '';
+  clearCodeBlocks();
   generateBackupCommand(replaceQuery);
   generateDbChangeCommands(searchQuery, replaceQuery);
   generateRedirectDirectives(replaceQuery);
