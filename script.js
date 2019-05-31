@@ -11,8 +11,8 @@ let protocolVariations = [
   ':\\\/\\\/',
   '://'
 ];
-let prefix = "wp search-replace '";
-let suffix = "' --skip-columns=guid --report-changed-only"
+let commandString = "wp search-replace '";
+let commandOptions = "' --skip-columns=guid --report-changed-only"
 
 let clearCodeBlocks = function() {
   backupCodeBlocks.innerHTML = '';
@@ -38,15 +38,16 @@ let generateBackupCommand = function(hostname) {
   el.setAttribute('onclick', 'copyText(this)');
   backupCodeBlocks.appendChild(el);
 }
-let generateDbChangeCommands = function(searchQuery, replaceQuery) {
+let generateDbChangeCommands = function(searchQuery, replaceQuery, prefix) {
+  if (!prefix) { prefix = '' };
   for (let i = 0; i < protocolVariations.length; i++) {
     let el = document.createElement('div');
-    el.innerHTML = prefix + "http" + protocolVariations[i] + searchQuery + "' 'https" + protocolVariations[i] + replaceQuery + suffix;
+    el.innerHTML = commandString + "http" + protocolVariations[i] + prefix + searchQuery + "' 'https" + protocolVariations[i] + prefix + replaceQuery + commandOptions;
     el.setAttribute('onclick', 'copyText(this)');
     dbChangeCodeBlocks.appendChild(el);
   }
   let el = document.createElement('div');
-  el.innerHTML = prefix + searchQuery + "' '" + replaceQuery + suffix;
+  el.innerHTML = commandString + prefix + searchQuery + "' '" + prefix + replaceQuery + commandOptions;
   el.setAttribute('onclick', 'copyText(this)');
   dbChangeCodeBlocks.appendChild(el);
 }
@@ -64,6 +65,9 @@ let generateOutput = function(searchQuery, replaceQuery) {
   output.className = '';
   clearCodeBlocks();
   generateBackupCommand(replaceQuery);
+  if(document.getElementById("includeWww").checked) {
+    generateDbChangeCommands(searchQuery, replaceQuery, "www.");
+  }
   generateDbChangeCommands(searchQuery, replaceQuery);
   generateRedirectDirectives(replaceQuery);
 }

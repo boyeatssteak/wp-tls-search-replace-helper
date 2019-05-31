@@ -34,10 +34,37 @@ input[type='text'] {
 input[type='text']:focus {
   background: #fff;
 }
+input[type='checkbox'] {
+  display: none;
+}
+.input.checkbox label::after {
+  margin-left: 12px;
+  display: inline-block;
+  cursor: pointer;
+  content: "\25CF";
+  color: #777;
+  font-size: 33px;
+  line-height: 22px;
+  border-radius: 12px;
+  background: #333;
+  padding: 0 35px 0 0;
+  border-width: 0 3px 3px 0;
+  border-style: solid;
+  border-color: #333;
+  position: relative;
+  top: 2px;
+  transition: all 200ms ease-in;
+}
+.input.checkbox input[type='checkbox']:checked + label::after {
+  color: #fff;
+  background: #163515;
+  padding: 0 0 0 35px;
+  border-color: #163515;
+}
 input[type='submit'] {
   background: #163515;
   color: #fff;
-  margin: 0;
+  margin: 20px 0 0 0;
   padding: 20px;
   text-transform: uppercase;
   display: block;
