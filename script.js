@@ -5,12 +5,13 @@ let backupCodeBlocks = document.getElementById("backupCodeBlocks");
 let dbChangeCodeBlocks = document.getElementById("dbChangeCodeBlocks");
 let redirectCodeBlocks = document.getElementById("redirectCodeBlocks");
 
-let protocolVariations = [
+let protocalSlashEscapeVariations = [
   '%3A%2F%2F',
   ":\\\\\/\\\\\/",
   ':\\\/\\\/',
   '://'
 ];
+let protocol = [ 'https', 'http' ];
 let commandString = "wp search-replace '";
 let commandOptions = "' --skip-columns=guid --report-changed-only"
 
@@ -38,11 +39,12 @@ let generateBackupCommand = function(hostname) {
   el.setAttribute('onclick', 'copyText(this)');
   backupCodeBlocks.appendChild(el);
 }
-let generateDbChangeCommands = function(searchQuery, replaceQuery, prefix) {
-  if (!prefix) { prefix = '' };
-  for (let i = 0; i < protocolVariations.length; i++) {
+let generateDbChangeCommands = function(searchQuery, replaceQuery, invertProtocol, prefix) {
+  if (!prefix) { prefix = ''; };
+  if (invertProtocol === true) { protocol = ['http','https']; };
+  for (let i = 0; i < protocalSlashEscapeVariations.length; i++) {
     let el = document.createElement('div');
-    el.innerHTML = commandString + "http" + protocolVariations[i] + prefix + searchQuery + "' 'https" + protocolVariations[i] + prefix + replaceQuery + commandOptions;
+    el.innerHTML = commandString + protocol[0] + protocalSlashEscapeVariations[i] + prefix + searchQuery + "' '" + protocol[1] + protocalSlashEscapeVariations[i] + prefix + replaceQuery + commandOptions;
     el.setAttribute('onclick', 'copyText(this)');
     dbChangeCodeBlocks.appendChild(el);
   }
@@ -50,6 +52,7 @@ let generateDbChangeCommands = function(searchQuery, replaceQuery, prefix) {
   el.innerHTML = commandString + prefix + searchQuery + "' '" + prefix + replaceQuery + commandOptions;
   el.setAttribute('onclick', 'copyText(this)');
   dbChangeCodeBlocks.appendChild(el);
+  protocol = [ 'https', 'http' ];
 }
 let generateRedirectDirectives = function(hostname) {
   let el = document.createElement('div');
@@ -64,11 +67,12 @@ let generateRedirectDirectives = function(hostname) {
 let generateOutput = function(searchQuery, replaceQuery) {
   output.className = '';
   clearCodeBlocks();
+  let invertProtocol = document.getElementById("invertProtocol").checked;
   generateBackupCommand(replaceQuery);
   if(document.getElementById("includeWww").checked) {
-    generateDbChangeCommands(searchQuery, replaceQuery, "www.");
+    generateDbChangeCommands(searchQuery, replaceQuery, invertProtocol, "www.");
   }
-  generateDbChangeCommands(searchQuery, replaceQuery);
+  generateDbChangeCommands(searchQuery, replaceQuery, invertProtocol);
   generateRedirectDirectives(replaceQuery);
 }
 
