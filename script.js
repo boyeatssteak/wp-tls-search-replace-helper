@@ -11,7 +11,7 @@ let protocalSlashEscapeVariations = [
   ':\\\/\\\/',
   '://'
 ];
-let protocol = [ 'https', 'http' ];
+let protocol = [ 'http', 'https' ];
 let commandString = "wp search-replace '";
 let commandOptions = "' --skip-columns=guid --report-changed-only"
 
@@ -41,7 +41,7 @@ let generateBackupCommand = function(hostname) {
 }
 let generateDbChangeCommands = function(searchQuery, replaceQuery, invertProtocol, prefix) {
   if (!prefix) { prefix = ''; };
-  if (invertProtocol === true) { protocol = ['http','https']; };
+  if (invertProtocol === true) { protocol = ['https','http']; };
   for (let i = 0; i < protocalSlashEscapeVariations.length; i++) {
     let el = document.createElement('div');
     el.innerHTML = commandString + protocol[0] + protocalSlashEscapeVariations[i] + prefix + searchQuery + "' '" + protocol[1] + protocalSlashEscapeVariations[i] + prefix + replaceQuery + commandOptions;
@@ -52,7 +52,7 @@ let generateDbChangeCommands = function(searchQuery, replaceQuery, invertProtoco
   el.innerHTML = commandString + prefix + searchQuery + "' '" + prefix + replaceQuery + commandOptions;
   el.setAttribute('onclick', 'copyText(this)');
   dbChangeCodeBlocks.appendChild(el);
-  protocol = [ 'https', 'http' ];
+  protocol = [ 'http', 'https' ];
 }
 let generateRedirectDirectives = function(hostname) {
   let el = document.createElement('div');
