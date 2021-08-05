@@ -2,10 +2,11 @@ let output = document.getElementById("output");
 output.className = 'hidden';
 
 let backupCodeBlocks = document.getElementById("backupCodeBlocks");
-let dbChangeCodeBlocks = document.getElementById("dbChangeCodeBlocks");
+let hostnameChangeCodeBlocks = document.getElementById("hostnameChangeCodeBlocks");
+let protocolChangeCodeBlocks = document.getElementById("protocolChangeCodeBlocks");
 let redirectCodeBlocks = document.getElementById("redirectCodeBlocks");
 
-let protocalSlashEscapeVariations = [
+let protocolSlashEscapeVariations = [
   '%3A%2F%2F',
   ":\\\\\/\\\\\/",
   ':\\\/\\\/',
@@ -13,22 +14,26 @@ let protocalSlashEscapeVariations = [
 ];
 let protocol = [ 'http', 'https' ];
 let commandString = "wp search-replace '";
-let commandOptions = "' --skip-columns=guid --report-changed-only"
+let commandOptions = "' --report-changed-only"
 
 let clearCodeBlocks = function() {
   backupCodeBlocks.innerHTML = '';
-  dbChangeCodeBlocks.innerHTML = '';
+  hostnameChangeCodeBlocks.innerHTML = '';
+  protocolChangeCodeBlocks.innerHTML = '';
   redirectCodeBlocks.innerHTML = '';
 }
 
-function formatDate(date) {
-  let d = new Date(date),
-    year = d.getFullYear(),
+function formatDate(d) {
+  let year = d.getFullYear(),
     month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate();
+    day = '' + d.getDate(),
+    hours = '' + d.getHours(),
+    minutes = '' + d.getMinutes();
   if (month.length < 2) month = '0' + month;
   if (day.length < 2) day = '0' + day;
-  return year + month + day;
+  if (hours.length < 2) hours = '0' + hours;
+  if (minutes.length < 2) minutes = '0' + minutes;
+  return year + month + day + '-' + hours + minutes;
 }
 
 let generateBackupCommand = function(hostname) {
@@ -39,19 +44,21 @@ let generateBackupCommand = function(hostname) {
   el.setAttribute('onclick', 'copyText(this)');
   backupCodeBlocks.appendChild(el);
 }
-let generateDbChangeCommands = function(searchQuery, replaceQuery, invertProtocol, prefix) {
+const generateHostnameChangeCommands = function(searchQuery, replaceQuery) {
+  let el = document.createElement('div');
+  el.innerHTML = commandString + searchQuery + "' '" + replaceQuery + commandOptions;
+  el.setAttribute('onclick', 'copyText(this)');
+  hostnameChangeCodeBlocks.appendChild(el);
+}
+let generateProtocolChangeCommands = function(hostname, invertProtocol, prefix) {
   if (!prefix) { prefix = ''; };
   if (invertProtocol === true) { protocol = ['https','http']; };
-  for (let i = 0; i < protocalSlashEscapeVariations.length; i++) {
+  for (let i = 0; i < protocolSlashEscapeVariations.length; i++) {
     let el = document.createElement('div');
-    el.innerHTML = commandString + protocol[0] + protocalSlashEscapeVariations[i] + prefix + searchQuery + "' '" + protocol[1] + protocalSlashEscapeVariations[i] + prefix + replaceQuery + commandOptions;
+    el.innerHTML = commandString + protocol[0] + protocolSlashEscapeVariations[i] + prefix + hostname + "' '" + protocol[1] + protocolSlashEscapeVariations[i] + prefix + hostname + commandOptions;
     el.setAttribute('onclick', 'copyText(this)');
-    dbChangeCodeBlocks.appendChild(el);
+    protocolChangeCodeBlocks.appendChild(el);
   }
-  let el = document.createElement('div');
-  el.innerHTML = commandString + prefix + searchQuery + "' '" + prefix + replaceQuery + commandOptions;
-  el.setAttribute('onclick', 'copyText(this)');
-  dbChangeCodeBlocks.appendChild(el);
   protocol = [ 'http', 'https' ];
 }
 let generateRedirectDirectives = function(hostname) {
@@ -68,11 +75,13 @@ let generateOutput = function(searchQuery, replaceQuery) {
   output.className = '';
   clearCodeBlocks();
   let invertProtocol = document.getElementById("invertProtocol").checked;
+  generateBackupCommand(searchQuery);
   generateBackupCommand(replaceQuery);
+  generateHostnameChangeCommands(searchQuery, replaceQuery);
   if(document.getElementById("includeWww").checked) {
-    generateDbChangeCommands(searchQuery, replaceQuery, invertProtocol, "www.");
+    generateProtocolChangeCommands(replaceQuery, invertProtocol, "www.");
   }
-  generateDbChangeCommands(searchQuery, replaceQuery, invertProtocol);
+  generateProtocolChangeCommands(replaceQuery, invertProtocol);
   generateRedirectDirectives(replaceQuery);
 }
 

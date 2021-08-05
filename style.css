@@ -78,33 +78,40 @@ input[type='submit']:hover {
   padding: 0px;
 }
 #backup,
-#dbChange,
+#hostnameChange,
+#protocolChange,
 #redirect {
   max-height: 1000px;
   transition: all 1s ease-in-out;
 }
 #output.hidden #backup,
-#output.hidden #dbChange,
+#output.hidden #hostnameChange,
+#output.hidden #protocolChange,
 #output.hidden #redirect {
   max-height: 0;
   padding: 0;
 }
 #output.hidden #backup *,
-#output.hidden #dbChange *,
+#output.hidden #hostnameChange *,
+#output.hidden #protocolChange *,
 #output.hidden #redirect * {
   display: none;
 }
 #backup {
+  background: #d3edd1;
+}
+#hostnameChange {
   background: #bce4b9;
 }
-#dbChange {
-  background: #a4daa1;
+#protocolChange {
+  background: #a4daa0;
 }
 #redirect {
   background: #8dd188;
 }
 #backupCodeBlocks div,
-#dbChangeCodeBlocks div,
+#hostnameChangeCodeBlocks div,
+#protocolChangeCodeBlocks div,
 #redirectCodeBlocks div {
   font-family: 'Courier New', Courier, monospace;
   padding: 10px;
@@ -113,7 +120,8 @@ input[type='submit']:hover {
   color: #ccc;
 }
 #backupCodeBlocks div.copied,
-#dbChangeCodeBlocks div.copied,
+#hostnameChangeCodeBlocks div.copied,
+#protocolChangeCodeBlocks div.copied,
 #redirectCodeBlocks div.copied {
   background: #222;
   color: #666;
